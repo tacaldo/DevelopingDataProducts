@@ -1,6 +1,6 @@
 # Define server logic
 server <- function(input, output, session) {
-  # Define ranges for each biomarker....
+  # Define ranges for each biomarker, i know
   ranges <- reactive({
     switch(input$iron_property,
            "serum_iron" = list(
