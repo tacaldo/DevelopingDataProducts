@@ -7,6 +7,9 @@ library(bslib)
 
 # Define UI
 ui <- fluidPage(
+  # Include external CSS file
+  tags$link(rel = "stylesheet", href = "styles.css"),
+  
   titlePanel("Blood Panel Metrics: Interpreting Iron Related Biomarkers"),
   sidebarLayout(
     sidebarPanel(
@@ -28,12 +31,13 @@ ui <- fluidPage(
       ")),
       br(),
       br(),
-      layout_columns( 
-        card( 
-          card_header("Card 1 header"),
-          p("Card 1 body"),
-        ), 
-      ) 
+      navset_card_pill( 
+        nav_panel("Biomarkers", "Iron-related biomarkers are critical for assessing iron metabolism, diagnosing conditions like anemia or hemochromatosis, and monitoring treatment. Based on clinical relevance and their use in medical practice, the most important biomarkers related to iron are listed below, with a focus on their role in evaluating iron status."), 
+        nav_panel("Clinical Ranges", "Page B content"),
+      ), 
+      id = "tab" 
+    
+    
       
       
     ),
