@@ -1,0 +1,124 @@
+# Define server logic
+server <- function(input, output, session) {
+  # Define ranges for each biomarker....
+  ranges <- reactive({
+    switch(input$iron_property,
+           "serum_iron" = list(
+             min = 0, max = 500, value = 100, step = 1,
+             ranges = data.frame(
+               xmin = c(0, 60, 170),
+               xmax = c(60, 170, 500),
+               ymin = c(-0.4, -0.4, -0.4),
+               ymax = c(0.4, 0.4, 0.4),
+               range = c("Low", "Normal", "High"),
+               color = c("red", "yellow", "green")
+             )
+           ),
+           "ferritin" = list(
+             min = 0, max = 1000, value = 100, step = 1,
+             ranges = data.frame(
+               xmin = c(0, 30, 400),
+               xmax = c(30, 400, 1000),
+               ymin = c(-0.5, -0.5, -0.5),
+               ymax = c(0.5, 0.5, 0.5),
+               range = c("High", "Normal", "Low"),
+               color = c("#FF9999", "#99FF99", "#FFCC99")
+             )
+           ),
+           "transferrin_sat" = list(
+             min = 0, max = 100, value = 30, step = 0.1,
+             ranges = data.frame(
+               xmin = c(0, 20, 50),
+               xmax = c(20, 50, 100),
+               ymin = c(-0.5, -0.5, -0.5),
+               ymax = c(0.5, 0.5, 0.5),
+               range = c("Low", "Normal", "High"),
+               color = c("#FF9999", "#99FF99", "#FFCC99")
+             )
+           ),
+           "tibc" = list(
+             min = 0, max = 600, value = 300, step = 1,
+             ranges = data.frame(
+               xmin = c(0, 240, 450),
+               xmax = c(240, 450, 600),
+               ymin = c(-0.5, -0.5, -0.5),
+               ymax = c(0.5, 0.5, 0.5),
+               range = c("Low", "Normal", "High"),
+               color = c("#FF9999", "#99FF99", "#FFCC99")
+             )
+           ))
+  })
+  
+  # Render dynamic slider
+  output$dynamic_slider <- renderUI({
+    req(input$iron_property) # Ensure iron_property is selected
+    range_data <- ranges()
+    sliderInput("iron_value",
+                "Enter Biomarker Value:",
+                min = range_data$min,
+                max = range_data$max,
+                value = range_data$value,
+                step = range_data$step)
+  })
+  
+  # Create data for the line
+  data <- reactive({
+    range_data <- ranges()
+    x <- seq(0, range_data$max, length.out = 100)
+    y <- rep(0, length(x))
+    data.frame(x = x, y = y)
+  })
+  
+  # Create marker data
+  marker <- reactive({
+    data.frame(x = input$iron_value, y = 0)
+  })
+  
+  # Render line plot with ranges and marker
+  output$rangePlot <- renderPlot({
+    range_data <- ranges()
+    ggplot() +
+      geom_rect(data = range_data$ranges,
+                aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, fill = range),
+                alpha = 0.3) +
+      geom_line(data = data(), aes(x = x, y = y), color = "black", size = 1) +
+      geom_point(data = marker(), aes(x = x, y = y),
+                 shape = 21, fill = "red", color = "black", size = 4) +
+      scale_fill_manual(values = range_data$ranges$color,
+                        labels = range_data$ranges$range,
+                        name = "Range") +
+      theme_minimal() +
+      labs(x = switch(input$iron_property,
+                      "serum_iron" = "Serum Iron (mcg/dL)",
+                      "ferritin" = "Ferritin (ng/mL)",
+                      "transferrin_sat" = "Transferrin Saturation (%)",
+                      "tibc" = "Total Iron-Binding Capacity (mcg/dL)"),
+           y = NULL,
+           title = "Iron Biomarker Value in Clinical Ranges") +
+      theme(axis.text.y = element_blank(),
+            axis.ticks.y = element_blank(),
+            legend.position = "none") +
+      coord_cartesian(ylim = c(-.75, .75))
+  })
+  
+  # Render histogram (simulated data)
+  output$histPlot <- renderPlot({
+    range_data <- ranges()
+    mean_value <- input$iron_value
+    x <- rnorm(500, mean = mean_value, sd = (range_data$max - range_data$min) / 10)
+    hist(x, breaks = 30, col = "skyblue",
+         main = paste("Simulated", switch(input$iron_property,
+                                          "serum_iron" = "Serum Iron",
+                                          "ferritin" = "Ferritin",
+                                          "transferrin_sat" = "Transferrin Saturation",
+                                          "tibc" = "TIBC"), "Distribution"),
+         xlab = switch(input$iron_property,
+                       "serum_iron" = "Serum Iron (mcg/dL)",
+                       "ferritin" = "Ferritin (ng/mL)",
+                       "transferrin_sat" = "Transferrin Saturation
+
+ (%)",
+                       "tibc" = "Total Iron-Binding Capacity (mcg/dL)"),
+         ylab = "Frequency")
+  })
+}
