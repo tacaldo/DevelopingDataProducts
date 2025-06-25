@@ -30,11 +30,20 @@ ui <- fluidPage(
         }
       ")),
       br(),
-      br(),
       navset_card_pill( 
         nav_panel("Biomarkers", "Iron-related biomarkers are critical for assessing iron metabolism, diagnosing conditions like anemia or hemochromatosis, and monitoring treatment. Based on clinical relevance and their use in medical practice, the most important biomarkers related to iron are listed below, with a focus on their role in evaluating iron status."), 
-        nav_panel("Clinical Ranges", "Page B content"),
-      ), 
+        nav_panel(
+          "Biomarkers Explained",
+          markdown("
+    **Iron metabolism** is critical for *health assessment* and diagnosing conditions like _anemia_ or _hemochromatosis_.
+
+    - **Serum Iron**: Measures *circulating iron* in the blood, indicating immediate availability.
+    - **Ferritin**: Reflects _iron stores_, the most reliable marker for reserves.
+    - **Transferrin Saturation (TSAT)**: Shows the *percentage* of transferrin saturated with iron.
+    - **TIBC**: Indicates the blood’s _capacity to bind iron_.
+  ")
+        )
+        ), 
       id = "tab" 
     
     
