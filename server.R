@@ -19,10 +19,10 @@ server <- function(input, output, session) {
              ranges = data.frame(
                xmin = c(0, 30, 400),
                xmax = c(30, 400, 1000),
-               ymin = c(-0.5, -0.5, -0.5),
-               ymax = c(0.5, 0.5, 0.5),
-               range = c("High", "Normal", "Low"),
-               color = c("#FF9999", "#99FF99", "#FFCC99")
+               ymin = c(-0.4, -0.4, -0.4),
+               ymax = c(0.4, 0.4, 0.4),
+               range = c("Low", "Normal", "High"),
+               color = c("red", "yellow", "green")
              )
            ),
            "transferrin_sat" = list(
