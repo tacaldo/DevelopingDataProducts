@@ -5,26 +5,24 @@ server <- function(input, output, session) {
     switch(
       input$iron_property,
       "serum_iron" = tagList(
-        h3("Range Tab"),
-        p(
-          "This is the server-rendered content for the Range tab (Serum Iron)."
+        h4("Serum Iron Range"),
+        p("Normal Range:"),
+        tags$ul(
+          tags$li("Men: 65–176 mcg/dL"),
+          tags$li("Women: 50–170 mcg/dL"),
+          tags$li("Children: 50–120 mcg/dL (age-dependent)")
         ),
-        p(input$iron_property),
-        p(input$iron_value)
-      ),
+        p("Note: Serum iron varies diurnally and with diet. Ferritin is more reliable for iron status.")
+        ),
       "ferritin" = tagList(
-        h3("Range Tab"),
-        p(
-          "This is the server-rendered content for the Range tab (Ferritin)."
+        h4("Ferritin Range"),
+        p("Normal Range:"),
+        tags$ul(
+          tags$li("Men: 30–400 ng/mL"),
+          tags$li("Women: 15–150 ng/mL"),
+          tags$li("Children: 7–140 ng/mL (age-dependent)")
         ),
-        p(input$iron_property)
-      ),
-      "transferrin" = tagList(
-        h3("Range Tab"),
-        p(
-          "This is the server-rendered content for the Range tab (Transferrin)."
-        ),
-        p(input$iron_property)
+        p("Iron Deficiency: <30 ng/mL (healthy); <100 ng/mL (inflammation).")
       ),
       # Default case
       tagList(
