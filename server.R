@@ -5,7 +5,7 @@ server <- function(input, output, session) {
     switch(
       input$iron_property,
       "serum_iron" = tagList(
-        h4("Serum Iron Range"),
+        h3("Serum Iron Range"),
         p("Normal Range:"),
         tags$ul(
           tags$li("Men: 65–176 mcg/dL"),
@@ -15,7 +15,7 @@ server <- function(input, output, session) {
         p("Note: Serum iron varies diurnally and with diet. Ferritin is more reliable for iron status.")
         ),
       "ferritin" = tagList(
-        h4("Ferritin Range"),
+        h3("Ferritin Range"),
         p("Normal Range:"),
         tags$ul(
           tags$li("Men: 30–400 ng/mL"),
@@ -24,6 +24,27 @@ server <- function(input, output, session) {
         ),
         p("Iron Deficiency: <30 ng/mL (healthy); <100 ng/mL (inflammation).")
       ),
+      "transferrin_sat" = tagList(
+        h3("Transferrin Saturation (TSAT) Range"),
+        p("Normal Range:"),
+        tags$ul(
+          tags$li("Men: 20–50%"),
+          tags$li("Women: 15–45%"),
+          tags$li("Children: 10–50% (age-dependent)")
+        ),
+        p("Iron Deficiency: <20%. Iron Overload: >50%."),
+        p("Note: TSAT = (serum iron ÷ TIBC) × 100.")
+      ),
+      "tibc" = tagList(
+        h3("Total Iron-Binding Capacity (TIBC) Range"),
+        p("Normal Range:"),
+        tags$ul(
+          tags$li("Adults: 240–450 mcg/dL"),
+          tags$li("Children: 100–400 mcg/dL (age-dependent)")
+        ),
+        p("Iron Deficiency: >400 mcg/dL. Iron Overload: <240 mcg/dL.")
+      ),
+      
       # Default case
       tagList(
         h3("Range Tab"),
