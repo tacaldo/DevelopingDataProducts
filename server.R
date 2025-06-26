@@ -58,9 +58,53 @@ server <- function(input, output, session) {
   
   # Render content for the "Nutritional Guidance" tab
   output$nutritional_content <- renderUI({
-    tagList(
-      h3("Nutritional Guidance Tab"),
-      p("This is the server-rendered content for the Nutritional Guidance tab.")
+    switch(input$iron_property,
+           "serum_iron" = tagList(
+             h3("Nutritional Guidance for Serum Iron"),
+             p("To maintain healthy serum iron levels:"),
+             tags$ul(
+               tags$li("Eat heme iron foods (e.g., red meat, liver, fish) for better absorption."),
+               tags$li("Pair non-heme iron (e.g., spinach, lentils) with vitamin C-rich foods (e.g., oranges)."),
+               tags$li("Avoid tea, coffee, or dairy during iron-rich meals to reduce inhibitors."),
+               tags$li("Consider oral iron supplements (e.g., ferrous sulfate) if deficient, taken on an empty stomach.")
+             ),
+             p("Consult a healthcare provider for monitoring and personalized advice.")
+           ),
+           "ferritin" = tagList(
+             h3("Nutritional Guidance for Ferritin"),
+             p("To boost iron stores:"),
+             tags$ul(
+               tags$li("Include high-bioavailability iron sources (e.g., meat, poultry, fish)."),
+               tags$li("Supplement with oral iron for 4–6 months to reach ferritin >50 ng/mL."),
+               tags$li("Monitor for side effects like nausea or constipation.")
+             ),
+             p("Consult a healthcare provider for monitoring.")
+           ),
+           "transferrin_sat" = tagList(
+             h3("Nutritional Guidance for Transferrin Saturation"),
+             p("To improve TSAT:"),
+             tags$ul(
+               tags$li("Address causes like blood loss or inflammation."),
+               tags$li("Use intravenous iron if oral supplements are ineffective, especially in chronic conditions (e.g., CKD, IBD)."),
+               tags$li("Increase dietary iron intake with heme sources or fortified foods.")
+             ),
+             p("Consult a healthcare provider for tailored treatment.")
+           ),
+           "tibc" = tagList(
+             h3("Nutritional Guidance for TIBC"),
+             p("To address abnormal TIBC:"),
+             tags$ul(
+               tags$li("High TIBC (>400 mcg/dL): Increase iron intake via diet (e.g., red meat, fortified cereals) or supplements."),
+               tags$li("Low TIBC (<240 mcg/dL): Limit dietary iron and seek medical evaluation for possible iron overload (e.g., hemochromatosis)."),
+               tags$li("Monitor with regular blood tests to assess iron status.")
+             ),
+             p("Consult a healthcare provider for personalized treatment.")
+           ),
+           # Default case
+           tagList(
+             h3("Nutritional Guidance"),
+             p("Select an iron property to view specific nutritional recommendations.")
+           )
     )
   })
   

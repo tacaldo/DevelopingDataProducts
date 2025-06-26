@@ -37,6 +37,12 @@ ui <- fluidPage(
                            *<i>Iron-related biomarkers are critical for assessing iron metabolism, diagnosing conditions like anemia or hemochromatosis, and monitoring treatment.</i>*
                            
                            While many more iron-related biomarkers exist, the primary focus of the app is...
+                           
+                           
+                           
+                           
+                           
+                           
                            ")
                   ), 
         nav_panel(
@@ -50,10 +56,22 @@ ui <- fluidPage(
         ),
         
         
+      id = "tab" 
 
         
+        ),
+      br(),
+      br(),
+      
+      layout_columns( 
+        card( 
+          card_header(markdown("*Important Notice*")),
+          markdown("*This content is provided for educational purposes only and is not intended as a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider with any questions regarding a medical condition or before making changes to your diet, supplementation, or treatment plan.*"),
         ), 
-      id = "tab" 
+
+      )       
+      
+      
     
     
       
@@ -68,7 +86,11 @@ ui <- fluidPage(
         nav_panel("C", "Page C content"),
         id = "tab2" 
     
-      ), 
+      ),
+      br(),
+      br(),
+      
+      
       
       
       
