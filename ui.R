@@ -18,8 +18,8 @@ ui <- fluidPage(
                   choices = list(
                     "Serum Iron (mcg/dL)" = "serum_iron",
                     "Ferritin (ng/mL)" = "ferritin",
-                    "Transferrin Saturation (%)" = "transferrin_sat",
-                    "Total Iron-Binding Capacity (mcg/dL)" = "tibc"
+                    "TSAT (%)" = "transferrin_sat",
+                    "TIBC (mcg/dL)" = "tibc"
                   )),
       br(),
       uiOutput("dynamic_slider"), # Dynamic slider placeholder
@@ -30,19 +30,28 @@ ui <- fluidPage(
         }
       ")),
       br(),
-      navset_card_pill( 
-        nav_panel("Biomarkers", "Iron-related biomarkers are critical for assessing iron metabolism, diagnosing conditions like anemia or hemochromatosis, and monitoring treatment. Based on clinical relevance and their use in medical practice, the most important biomarkers related to iron are listed below, with a focus on their role in evaluating iron status."), 
+      br(),
+      navset_card_pill(
+        nav_panel("Biomarkers",
+                  markdown("
+                           *<i>Iron-related biomarkers are critical for assessing iron metabolism, diagnosing conditions like anemia or hemochromatosis, and monitoring treatment.</i>*
+                           
+                           While many more iron-related biomarkers exist, the primary focus of the app is...
+                           ")
+                  ), 
         nav_panel(
-          "Biomarkers Explained",
+          "Descriptions",
           markdown("
-    **Iron metabolism** is critical for *health assessment* and diagnosing conditions like _anemia_ or _hemochromatosis_.
-
     - **Serum Iron**: Measures *circulating iron* in the blood, indicating immediate availability.
     - **Ferritin**: Reflects _iron stores_, the most reliable marker for reserves.
     - **Transferrin Saturation (TSAT)**: Shows the *percentage* of transferrin saturated with iron.
     - **TIBC**: Indicates the blood’s _capacity to bind iron_.
   ")
-        )
+        ),
+        
+        
+
+        
         ), 
       id = "tab" 
     
@@ -52,6 +61,14 @@ ui <- fluidPage(
     ),
     mainPanel(
       plotOutput("rangePlot"),
+      
+      navset_tab( 
+        nav_panel("Range", "Page A content"), 
+        nav_panel("Nutritional Guidance", "Page B content"), 
+        nav_panel("C", "Page C content"), 
+      ), 
+      id = "tab2" 
+      
       
       
       #plotOutput("histPlot")
