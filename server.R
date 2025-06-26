@@ -101,24 +101,4 @@ server <- function(input, output, session) {
       coord_cartesian(ylim = c(-.75, .75))
   })
   
-  # Render histogram (simulated data)
-  output$histPlot <- renderPlot({
-    range_data <- ranges()
-    mean_value <- input$iron_value
-    x <- rnorm(500, mean = mean_value, sd = (range_data$max - range_data$min) / 10)
-    hist(x, breaks = 30, col = "skyblue",
-         main = paste("Simulated", switch(input$iron_property,
-                                          "serum_iron" = "Serum Iron",
-                                          "ferritin" = "Ferritin",
-                                          "transferrin_sat" = "Transferrin Saturation",
-                                          "tibc" = "TIBC"), "Distribution"),
-         xlab = switch(input$iron_property,
-                       "serum_iron" = "Serum Iron (mcg/dL)",
-                       "ferritin" = "Ferritin (ng/mL)",
-                       "transferrin_sat" = "Transferrin Saturation
-
- (%)",
-                       "tibc" = "Total Iron-Binding Capacity (mcg/dL)"),
-         ylab = "Frequency")
-  })
 }
