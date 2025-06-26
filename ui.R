@@ -63,8 +63,8 @@ ui <- fluidPage(
       plotOutput("rangePlot"),
       
       navset_tab( 
-        nav_panel("Range", "Page A content"), 
-        nav_panel("Nutritional Guidance", "Page B content"), 
+        nav_panel("Range", uiOutput("range_content")),
+        nav_panel("Nutritional Guidance", uiOutput("nutritional_content")), 
         nav_panel("C", "Page C content"), 
       ), 
       id = "tab2" 

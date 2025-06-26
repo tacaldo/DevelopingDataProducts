@@ -1,5 +1,13 @@
 # Define server logic
 server <- function(input, output, session) {
+  # Render content for the "Range" tab
+  output$range_content <- renderUI({
+    tagList(
+      h3("Range Tab"),
+      p("This is the server-rendered content for the Range tab."),
+    )
+  })
+  
   # Define ranges for each biomarker, i know
   ranges <- reactive({
     switch(input$iron_property,
