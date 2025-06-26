@@ -2,71 +2,133 @@
 server <- function(input, output, session) {
   # Render content for the "Range" tab
   output$range_content <- renderUI({
-    tagList(
-      h3("Range Tab"),
-      p("This is the server-rendered content for the Range tab."),
+    switch(
+      input$iron_property,
+      "serum_iron" = tagList(
+        h3("Range Tab"),
+        p(
+          "This is the server-rendered content for the Range tab (Serum Iron)."
+        ),
+        p(input$iron_property),
+        p(input$iron_value)
+      ),
+      "ferritin" = tagList(
+        h3("Range Tab"),
+        p(
+          "This is the server-rendered content for the Range tab (Ferritin)."
+        ),
+        p(input$iron_property)
+      ),
+      "transferrin" = tagList(
+        h3("Range Tab"),
+        p(
+          "This is the server-rendered content for the Range tab (Transferrin)."
+        ),
+        p(input$iron_property)
+      ),
+      # Default case
+      tagList(
+        h3("Range Tab"),
+        p(
+          "This is the default server-rendered content for the Range tab."
+        ),
+        p(input$iron_property)
+      )
     )
   })
   
+  # Render content for the "Nutritional Guidance" tab
+  output$nutritional_content <- renderUI({
+    tagList(
+      h3("Nutritional Guidance Tab"),
+      p("This is the server-rendered content for the Nutritional Guidance tab.")
+    )
+  })
+  
+  # Render content for the "C" tab
+  output$c_content <- renderUI({
+    tagList(
+      h3("C Tab"),
+      p("This is the server-rendered content for the C tab.")
+    )
+  })
+  
+  
   # Define ranges for each biomarker, i know
   ranges <- reactive({
-    switch(input$iron_property,
-           "serum_iron" = list(
-             min = 0, max = 500, value = 100, step = 1,
-             ranges = data.frame(
-               xmin = c(0, 60, 170),
-               xmax = c(60, 170, 500),
-               ymin = c(-0.4, -0.4, -0.4),
-               ymax = c(0.4, 0.4, 0.4),
-               range = c("Low", "Normal", "High"),
-               color = c("red", "yellow", "green")
-             )
-           ),
-           "ferritin" = list(
-             min = 0, max = 1000, value = 100, step = 1,
-             ranges = data.frame(
-               xmin = c(0, 30, 400),
-               xmax = c(30, 400, 1000),
-               ymin = c(-0.4, -0.4, -0.4),
-               ymax = c(0.4, 0.4, 0.4),
-               range = c("Low", "Normal", "High"),
-               color = c("red", "yellow", "green")
-             )
-           ),
-           "transferrin_sat" = list(
-             min = 0, max = 100, value = 30, step = 0.1,
-             ranges = data.frame(
-               xmin = c(0, 20, 50),
-               xmax = c(20, 50, 100),
-               ymin = c(-0.4, -0.4, -0.4),
-               ymax = c(0.4, 0.4, 0.4),
-               range = c("Low", "Normal", "High"),
-               color = c("red", "yellow", "green")
-             )
-           ),
-           "tibc" = list(
-             min = 0, max = 600, value = 300, step = 1,
-             ranges = data.frame(
-               xmin = c(0, 240, 450),
-               xmax = c(240, 450, 600),
-               ymin = c(-0.4, -0.4, -0.4),
-               ymax = c(0.4, 0.4, 0.4),
-               range = c("Low", "Normal", "High"),
-               color = c("red", "yellow", "green")
-             )
-           ))
+    switch(
+      input$iron_property,
+      "serum_iron" = list(
+        min = 0,
+        max = 500,
+        value = 100,
+        step = 1,
+        ranges = data.frame(
+          xmin = c(0, 60, 170),
+          xmax = c(60, 170, 500),
+          ymin = c(-0.4, -0.4, -0.4),
+          ymax = c(0.4, 0.4, 0.4),
+          range = c("Low", "Normal", "High"),
+          color = c("red", "yellow", "green")
+        )
+      ),
+      "ferritin" = list(
+        min = 0,
+        max = 1000,
+        value = 100,
+        step = 1,
+        ranges = data.frame(
+          xmin = c(0, 30, 400),
+          xmax = c(30, 400, 1000),
+          ymin = c(-0.4, -0.4, -0.4),
+          ymax = c(0.4, 0.4, 0.4),
+          range = c("Low", "Normal", "High"),
+          color = c("red", "yellow", "green")
+        )
+      ),
+      "transferrin_sat" = list(
+        min = 0,
+        max = 100,
+        value = 30,
+        step = 0.1,
+        ranges = data.frame(
+          xmin = c(0, 20, 50),
+          xmax = c(20, 50, 100),
+          ymin = c(-0.4, -0.4, -0.4),
+          ymax = c(0.4, 0.4, 0.4),
+          range = c("Low", "Normal", "High"),
+          color = c("red", "yellow", "green")
+        )
+      ),
+      "tibc" = list(
+        min = 0,
+        max = 600,
+        value = 300,
+        step = 1,
+        ranges = data.frame(
+          xmin = c(0, 240, 450),
+          xmax = c(240, 450, 600),
+          ymin = c(-0.4, -0.4, -0.4),
+          ymax = c(0.4, 0.4, 0.4),
+          range = c("Low", "Normal", "High"),
+          color = c("red", "yellow", "green")
+        )
+      )
+    )
   })
   
   # Render dynamic slider
   output$dynamic_slider <- renderUI({
     req(input$iron_property) # Ensure iron_property is selected
     range_data <- ranges()
-    sliderInput("iron_value",
-                "Enter Biomarker Value:",
-                min = range_data$min,
-                max = range_data$max,
-                value = range_data$value,
-                step = range_data$step)
+    sliderInput(
+      "iron_value",
+      "Enter Biomarker Value:",
+      min = range_data$min,
+      max = range_data$max,
+      value = range_data$value,
+      step = range_data$step
+    )
   })
   
   # Create data for the line
@@ -86,26 +148,49 @@ server <- function(input, output, session) {
   output$rangePlot <- renderPlot({
     range_data <- ranges()
     ggplot() +
-      geom_rect(data = range_data$ranges,
-                aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, fill = range),
-                alpha = 0.3) +
-      geom_line(data = data(), aes(x = x, y = y), color = "black", size = 1) +
-      geom_point(data = marker(), aes(x = x, y = y),
-                 shape = 21, fill = "red", color = "black", size = 4) +
-      scale_fill_manual(values = range_data$ranges$color,
-                        labels = range_data$ranges$range,
-                        name = "Range") +
+      geom_rect(
+        data = range_data$ranges,
+        aes(
+          xmin = xmin,
+          xmax = xmax,
+          ymin = ymin,
+          ymax = ymax,
+          fill = range
+        ),
+        alpha = 0.3
+      ) +
+      geom_line(
+        data = data(),
+        aes(x = x, y = y),
+        color = "black",
+        size = 1
+      ) +
+      geom_point(
+        data = marker(),
+        aes(x = x, y = y),
+        shape = 21,
+        fill = "red",
+        color = "black",
+        size = 4
+      ) +
+      scale_fill_manual(
+        values = range_data$ranges$color,
+        labels = range_data$ranges$range,
+        name = "Range"
+      ) +
       theme_minimal() +
-      labs(x = switch(input$iron_property,
-                      "serum_iron" = "Serum Iron (mcg/dL)",
-                      "ferritin" = "Ferritin (ng/mL)",
-                      "transferrin_sat" = "Transferrin Saturation (%)",
-                      "tibc" = "Total Iron-Binding Capacity (mcg/dL)"),
-           y = NULL,
-           title = "Iron Biomarker Value in Clinical Ranges") +
-      theme(axis.text.y = element_blank(),
-            axis.ticks.y = element_blank(),
-            legend.position = "none") +
+      labs(x = switch(
+        input$iron_property,
+        "serum_iron" = "Serum Iron (mcg/dL)",
+        "ferritin" = "Ferritin (ng/mL)",
+        "transferrin_sat" = "Transferrin Saturation (%)",
+        "tibc" = "Total Iron-Binding Capacity (mcg/dL)"
+      ), y = NULL, title = "Iron Biomarker Value in Clinical Ranges") +
+      theme(
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        legend.position = "none"
+      ) +
       coord_cartesian(ylim = c(-.75, .75))
   })
   
