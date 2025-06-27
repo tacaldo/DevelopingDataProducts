@@ -186,7 +186,7 @@ server <- function(input, output, session) {
     range_data <- ranges()
     sliderInput(
       "iron_value",
-      "Enter Biomarker Value:",
+      "Set Biomarker Value:",
       min = range_data$min,
       max = range_data$max,
       value = range_data$value,
