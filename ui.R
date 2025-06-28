@@ -56,10 +56,13 @@ ui <- fluidPage(
           "Descriptions",
           markdown(
   "
-    - **Serum Iron**: Measures *circulating iron* in the blood, indicating immediate availability.
-    - **Ferritin**: Reflects _iron stores_, the most reliable marker for reserves.
-    - **Transferrin Saturation (TSAT)**: Shows the *percentage* of transferrin saturated with iron.
-    - **TIBC**: Indicates the blood’s _capacity to bind iron_.
+    **Serum Iron**: Measures *circulating iron* in the blood, indicating immediate availability.
+    
+    **Ferritin**: Reflects _iron stores_, the most reliable marker for reserves.
+    
+    **Transferrin Saturation (TSAT)**: Shows the *percentage* of transferrin saturated with iron.
+    
+    **TIBC**: Indicates the blood’s _capacity to bind iron_.
   "
           )
         ),
