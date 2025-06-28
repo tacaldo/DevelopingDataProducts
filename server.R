@@ -203,7 +203,12 @@ server <- function(input, output, session) {
   })
   
   # Create marker data
+  # marker <- reactive({
+  #   data.frame(x = input$iron_value, y = 0)
+  # })
+  
   marker <- reactive({
+    req(input$iron_value)  # Ensure input$iron_value is defined
     data.frame(x = input$iron_value, y = 0)
   })
   
