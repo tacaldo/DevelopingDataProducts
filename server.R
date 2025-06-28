@@ -109,10 +109,10 @@ server <- function(input, output, session) {
   })
   
   # Render content for the "C" tab
-  output$c_content <- renderUI({
+  output$instructions_content <- renderUI({
     tagList(
-      h3("C Tab"),
-      p("This is the server-rendered content for the C tab.")
+      h3("Instructions"),
+      p("This is the server-rendered content for the instructions tab.")
     )
   })
   

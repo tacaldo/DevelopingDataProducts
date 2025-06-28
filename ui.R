@@ -91,6 +91,9 @@ ui <- fluidPage(
       navset_tab(
         nav_panel("Range", uiOutput("range_content")),
         nav_panel("Nutritional Guidance", uiOutput("nutritional_content")),
+        nav_panel("Instructions", uiOutput("instructions_content")),
+        
+        
         id = "tab2"
         
       ),
