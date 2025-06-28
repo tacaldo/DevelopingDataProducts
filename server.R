@@ -112,7 +112,13 @@ server <- function(input, output, session) {
   output$instructions_content <- renderUI({
     tagList(
       h3("Instructions"),
-      p("This is the server-rendered content for the instructions tab.")
+      p("Check common iron related blood properties to get clinical ranges and nutritional guidance.."),
+      tags$ul(
+        tags$li("Choose iron biomarker from the drop down list [Select Iron Biomarker]."),
+        tags$li("Set biomarker value using the slider [Set Biomarker Value]."),
+       
+        
+      ),
     )
   })
   
