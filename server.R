@@ -116,7 +116,9 @@ server <- function(input, output, session) {
       tags$ul(
         tags$li("Choose iron biomarker from the drop down list [Select Iron Biomarker]."),
         tags$li("Set biomarker value using the slider [Set Biomarker Value]."),
-       
+      p(""),
+      p("Note: The selections will update the range plot, and relevant tabs automatically.", class = "italic"),
+      
         
       ),
     )

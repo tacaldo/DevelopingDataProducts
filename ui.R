@@ -2,6 +2,8 @@ library(shiny)
 library(ggplot2)
 library(bslib)
 
+
+
 # Ensure UTF-8 encoding for proper rendering of µ
 #Sys.setlocale("LC_ALL", "en_US.UTF-8")
 
@@ -62,7 +64,7 @@ ui <- fluidPage(
     
     **Transferrin Saturation (TSAT)**: Shows the *percentage* of transferrin saturated with iron.
     
-    **TIBC**: Indicates the blood’s _capacity to bind iron_.
+    **Total Iron Binding Capacity (TIBC)**: Indicates the blood’s _capacity to bind iron_.
   "
           )
         ),
